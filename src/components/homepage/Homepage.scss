@@ -1,0 +1,13 @@
+.homepageContainer {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  margin-top: 100px;
+  h3 {
+    line-height: 30px;
+    .openLibraryLink {
+      color: goldenrod;
+    }
+  }
+}

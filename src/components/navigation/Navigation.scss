@@ -1,0 +1,29 @@
+.navigation {
+  display: grid;
+  grid-template-columns: 40% 60%;
+  width: 100%;
+  height: 50px;
+  border-bottom: 1px solid black;
+  line-height: 50px;
+
+  .logo {
+    margin-left: 20px;
+  }
+
+  .paths {
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    text-align: center;
+    .path {
+      text-decoration: none;
+    }
+    .path:hover {
+      border-bottom: 1px solid goldenrod;
+    }
+  }
+}
+
+.active p {
+  color: goldenrod;
+  border-bottom: 1px solid goldenrod;
+}
