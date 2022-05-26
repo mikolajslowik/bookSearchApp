@@ -1,36 +1,38 @@
 import "./books.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useBookSearch from "../../useBookSearch";
-import Tile, { BookSummary } from "../Tile.tsx/Tile";
+import Tile, { Book } from "../Tile.tsx/Tile";
 
 function Books() {
   const [query, setQuery] = useState("");
   const [pageNumber, setPageNumber] = useState(1);
-  const { loading, error, books, setOffset } = useBookSearch(query, pageNumber);
+  const { loading, error, books, offset, setOffset } = useBookSearch(
+    query,
+    pageNumber
+  );
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => (
     setQuery(e.target.value), setPageNumber(1)
   );
 
   const handlePageAndOffset = () => {
-    setPageNumber((prevPageNumber) => prevPageNumber + 1);
-    setOffset((prevOffset) => prevOffset + 10);
+    setPageNumber(pageNumber + 1);
+    setOffset(offset + 10);
+    console.log("lololo");
   };
 
-  const handleScroll = (e: any) => {
+  const handleScroll = (event: any) => {
     if (
-      window.innerHeight + e.target.documentElement.scrollTop >=
-      e.target.documentElement.scrollHeight
+      window.innerHeight + event.target.documentElement.scrollTop >=
+      event.target.documentElement.scrollHeight
     ) {
       handlePageAndOffset();
-
-      console.log("innerHeight", window.innerHeight);
-      console.log("top", e.target.documentElement.scrollTop);
-      console.log("scroll", e.target.documentElement.scrollHeight);
     } else return;
   };
 
-  window.addEventListener("scroll", handleScroll);
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, [pageNumber]);
 
   return (
     <>
@@ -42,18 +44,17 @@ function Books() {
           </label>
         </div>
         <ul className="list">
-          {books.map((book: BookSummary, index, books) => {
-            console.log(book);
+          {books.map((book: Book, index, books) => {
             if (books.length === index + 1) {
               return (
-                <li className="book" key={Math.random()}>
+                <li className="book" key={book.workKey}>
                   <Tile book={book} />
                 </li>
               );
             } else {
               return (
                 <li className="book">
-                  <Tile book={book} key={Math.random()} />
+                  <Tile book={book} key={book.workKey} />
                 </li>
               );
             }

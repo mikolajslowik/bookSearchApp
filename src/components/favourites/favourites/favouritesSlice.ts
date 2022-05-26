@@ -1,24 +1,30 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { Book } from "../../Tile.tsx/Tile";
 
 export interface FavouritesState {
-  favourites: boolean;
+  favourites: Book[];
 }
 
 const initialState: FavouritesState = {
-  favourites: false,
+  favourites: [],
 };
 
-export const favouritesSlice: any = createSlice({
-  name: "favouritesHandler",
+export const favouritesSlice = createSlice({
+  name: "favouritesSlice",
   initialState,
   reducers: {
-    setFavourites: (state) => {
-      state.favourites = !state.favourites;
-      // return { ...state, favourites: !state.favourites };
+    setFavourites: (state, action) => {
+      console.log("setFav", state.favourites, action.payload.isLocal);
+      state.favourites = [...state.favourites, action.payload];
+      localStorage.setItem("favourites", JSON.stringify(state.favourites));
+    },
+    toggleFavourites: (state, action) => {
+      state.favourites = [...state.favourites, action.payload.isLocal];
+      // problem
     },
   },
 });
 
-export const { setFavourites } = favouritesSlice.actions;
+export const { setFavourites, toggleFavourites } = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;

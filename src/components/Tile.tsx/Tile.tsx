@@ -1,19 +1,20 @@
-import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { store } from "../../app/store";
+import {
+  setFavourites,
+  toggleFavourites,
+} from "../favourites/favourites/favouritesSlice";
 import "./tile.scss";
-import { useDispatch, useSelector } from "react-redux";
-import { setFavourites } from "../favourites/favourites/favouritesSlice";
 
-// import { setFavourites } from "../../features/favourites/favouritesSlice";
-
-export interface TileSummary {
-  id: number | undefined;
-  title: string;
-  author: string[];
-  publishDate: string[];
-  book: BookSummary;
+export interface TileProps {
+  book: Book;
 }
 
-export interface BookSummary {
+export interface Books {
+  books: Book[];
+}
+
+export interface Book {
   id: number | undefined;
   title: string;
   author: string[];
@@ -22,59 +23,64 @@ export interface BookSummary {
   authorKey: string;
   workKey: string;
 }
+export default function Tile(props: TileProps) {
+  const dispatch = useDispatch();
 
-export default function Tile(props: any) {
-  // const { favouritesHandler } = useSelector(state => state.favourites);
-  const dispatch: any = useDispatch();
-
+  // console.log("props.book.tile", props.book);
   return (
     <div className="tile">
       <div className="img">
         {props.book.id ? (
           <img
+            className="cover"
             src={`https://covers.openlibrary.org/b/id/${props.book.id}-M.jpg`}
             alt="Cannot find image!"
           />
         ) : (
-          `cannot find cover`
+          <p className="cover">cannot find cover</p>
         )}
       </div>
+
       <div className="details">
-        <ul>
-          <li>
-            <p>Author:</p>
+        <div className="scroll">
+          <ul>
+            <li>
+              <p>Author:</p>
 
-            <a
-              className="tooltip"
-              href={`https://openlibrary.org/authors/${props.book.authorKey}`}
-            >
-              {props.book.author?.join(", ")}
-              <span className="tooltiptext">Check this author!</span>
-            </a>
-          </li>
-          <li>
-            <p>Title:</p>
+              <a
+                className="tooltip"
+                href={`https://openlibrary.org/authors/${props.book.authorKey}`}
+              >
+                {props.book.author?.join(", ")}
+                <span className="tooltiptext">Check this author!</span>
+              </a>
+            </li>
+            <li>
+              <p>Title:</p>
 
-            <a
-              className="tooltip"
-              href={`https://openlibrary.org/${props.book.workKey}`}
-            >
-              {props.book.title}
-              <span className="tooltiptext">Check this book!</span>
-            </a>
-          </li>
-          <li>
-            <p>First publication:</p>
-            {props.book.publishDate?.[0]}
-          </li>
-        </ul>
-        <div
-          className="add"
-          onClick={() => (
-            console.log(props.book.isLocal), dispatch(setFavourites())
-          )}
-        >
-          <p>+</p>
+              <a
+                className="tooltip"
+                href={`https://openlibrary.org/${props.book.workKey}`}
+              >
+                {props.book.title}
+                <span className="tooltiptext">Check this book!</span>
+              </a>
+            </li>
+            <li>
+              <p>First publication:</p>
+              {props.book.publishDate?.[0]}
+            </li>
+          </ul>
+          <div
+            className="add"
+            onClick={() => (
+              console.log(store.getState()),
+              dispatch(setFavourites(props.book)),
+              dispatch(toggleFavourites(true))
+            )}
+          >
+            <p>+</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,16 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-// interface DownloadedBook {
-//   id: string;
-//   title: string;
-//   workKey: string;
-//   author: string;
-//   publishDate: string;
-//   authorKey: string;
-//   isLocal: boolean;
-// }
-
 export default function useBookSearch(query, pageNumber) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
@@ -20,6 +10,9 @@ export default function useBookSearch(query, pageNumber) {
   useEffect(() => {
     setBooks([]);
   }, [query]);
+
+  console.log("offset", offset);
+  console.log("page", pageNumber);
 
   useEffect(() => {
     setLoading(true);
