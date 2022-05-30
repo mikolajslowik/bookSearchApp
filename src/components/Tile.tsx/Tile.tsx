@@ -1,5 +1,10 @@
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setFavourites } from "../favourites/favourites/favouritesSlice";
+import { useAppSelector } from "../../app/hooks";
+import {
+  setFavourites,
+  removeFavourites,
+} from "../favourites/favourites/favouritesSlice";
 import "./tile.scss";
 
 export interface TileProps {
@@ -18,9 +23,18 @@ export interface Book {
   key: string;
   authorKey: string;
   workKey: string;
+  isLocal: boolean;
 }
 export default function Tile(props: TileProps) {
   const dispatch = useDispatch();
+
+  const handleAdd = () => {
+    if (props.book.isLocal) {
+      dispatch(removeFavourites(props.book));
+    } else {
+      dispatch(setFavourites(props.book));
+    }
+  };
   return (
     <div className="tile">
       <div className="img">
@@ -65,11 +79,15 @@ export default function Tile(props: TileProps) {
               {props.book.publishDate?.[0]}
             </li>
           </ul>
-          <div
-            className="add"
-            onClick={() => dispatch(setFavourites(props.book))}
-          >
-            <p>+</p>
+          <div className="add" onClick={handleAdd}>
+            {/* <p onClick={() => setToggle(!toggle)}> */}
+            <p>
+              {props.book.isLocal ? (
+                <p style={{ color: "red" }}>-</p>
+              ) : (
+                <p style={{ color: "green" }}>+</p>
+              )}
+            </p>
           </div>
         </div>
       </div>

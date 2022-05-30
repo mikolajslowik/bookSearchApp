@@ -12,6 +12,10 @@ export default function useBookSearch(query, pageNumber) {
   }, [query]);
 
   useEffect(() => {
+    localStorage.getItem("artificalId");
+  }, [query]);
+
+  useEffect(() => {
     setLoading(true);
     setError(false);
     let cancel;
@@ -33,7 +37,7 @@ export default function useBookSearch(query, pageNumber) {
               ...new Set([
                 ...prevBooks,
                 ...res.data.docs.map((b) => ({
-                  id: b.cover_i,
+                  id: b.cover_i || generatedId(),
                   title: b.title,
                   workKey: b.key,
                   author: b.author_name,
@@ -62,4 +66,10 @@ export default function useBookSearch(query, pageNumber) {
     offset,
     setOffset,
   };
+}
+
+function generatedId() {
+  let generatedId = localStorage.getItem("generatedId") || 0;
+  localStorage.setItem("generatedId", ++generatedId);
+  return generatedId;
 }

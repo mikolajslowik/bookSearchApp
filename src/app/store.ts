@@ -1,4 +1,9 @@
-import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import {
+  configureStore,
+  ThunkAction,
+  Action,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
 import favouritesSlice from "../components/favourites/favourites/favouritesSlice";
 
 export const store = configureStore({
