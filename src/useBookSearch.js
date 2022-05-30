@@ -11,9 +11,6 @@ export default function useBookSearch(query, pageNumber) {
     setBooks([]);
   }, [query]);
 
-  console.log("offset", offset);
-  console.log("page", pageNumber);
-
   useEffect(() => {
     setLoading(true);
     setError(false);

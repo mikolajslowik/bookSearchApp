@@ -1,9 +1,5 @@
 import { useDispatch } from "react-redux";
-import { store } from "../../app/store";
-import {
-  setFavourites,
-  toggleFavourites,
-} from "../favourites/favourites/favouritesSlice";
+import { setFavourites } from "../favourites/favourites/favouritesSlice";
 import "./tile.scss";
 
 export interface TileProps {
@@ -25,8 +21,6 @@ export interface Book {
 }
 export default function Tile(props: TileProps) {
   const dispatch = useDispatch();
-
-  // console.log("props.book.tile", props.book);
   return (
     <div className="tile">
       <div className="img">
@@ -73,11 +67,7 @@ export default function Tile(props: TileProps) {
           </ul>
           <div
             className="add"
-            onClick={() => (
-              console.log(store.getState()),
-              dispatch(setFavourites(props.book)),
-              dispatch(toggleFavourites(true))
-            )}
+            onClick={() => dispatch(setFavourites(props.book))}
           >
             <p>+</p>
           </div>

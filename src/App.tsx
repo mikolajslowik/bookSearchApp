@@ -7,6 +7,8 @@ import Homepage from "./components/homepage/Homepage";
 import Navigation from "./components/navigation/Navigation";
 
 function App() {
+  console.clear();
+
   return (
     <div className="App">
       <Navigation />

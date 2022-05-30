@@ -18,7 +18,6 @@ function Books() {
   const handlePageAndOffset = () => {
     setPageNumber(pageNumber + 1);
     setOffset(offset + 10);
-    console.log("lololo");
   };
 
   const handleScroll = (event: any) => {

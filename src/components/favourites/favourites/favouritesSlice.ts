@@ -14,17 +14,16 @@ export const favouritesSlice = createSlice({
   initialState,
   reducers: {
     setFavourites: (state, action) => {
-      console.log("setFav", state.favourites, action.payload.isLocal);
       state.favourites = [...state.favourites, action.payload];
       localStorage.setItem("favourites", JSON.stringify(state.favourites));
     },
-    toggleFavourites: (state, action) => {
-      state.favourites = [...state.favourites, action.payload.isLocal];
-      // problem
-    },
+    // toggleFavourites: (state, action) => {
+    //   state.favourites = [...state.favourites, action.payload.isLocal];
+    // problem
+    // },
   },
 });
 
-export const { setFavourites, toggleFavourites } = favouritesSlice.actions;
+export const { setFavourites } = favouritesSlice.actions;
 
 export default favouritesSlice.reducer;
