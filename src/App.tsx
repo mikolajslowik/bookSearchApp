@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import "./App.scss";
 import About from "./components/about/About";
-import Books from "./components/books/Books";
+import Books from "./components/books/books";
 import Favourites from "./components/favourites/Favourites";
 import Homepage from "./components/homepage/Homepage";
 import Navigation from "./components/navigation/Navigation";
