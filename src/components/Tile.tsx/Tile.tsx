@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { useAppSelector } from "../../app/hooks";
 import {
   setFavourites,
   removeFavourites,
@@ -80,7 +78,6 @@ export default function Tile(props: TileProps) {
             </li>
           </ul>
           <div className="add" onClick={handleAdd}>
-            {/* <p onClick={() => setToggle(!toggle)}> */}
             <p>
               {props.book.isLocal ? (
                 <p style={{ color: "red" }}>-</p>

@@ -29,9 +29,17 @@ export const favouritesSlice = createSlice({
       });
       localStorage.setItem("favourites", JSON.stringify(state.favourites));
     },
+    getPersistedBooks: (state) => {
+      if (localStorage.getItem("favourites") !== null) {
+        const localStorageInit: string = localStorage.getItem("favourites")!;
+        const localParsed = JSON.parse(localStorageInit);
+        state.favourites = [...localParsed];
+      } else return;
+    },
   },
 });
 
-export const { setFavourites, removeFavourites } = favouritesSlice.actions;
+export const { setFavourites, removeFavourites, getPersistedBooks } =
+  favouritesSlice.actions;
 
 export default favouritesSlice.reducer;
