@@ -31,7 +31,7 @@ function Books() {
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll);
-  }, [pageNumber]);
+  }, [pageNumber, offset]);
 
   return (
     <>
